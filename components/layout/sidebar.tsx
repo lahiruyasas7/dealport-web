@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 import {
   House,
   ShoppingCart,
@@ -22,8 +22,10 @@ import {
   ExternalLink,
   CirclePlus,
   CircleUserRound,
-  Settings
-} from 'lucide-react';
+  Settings,
+  LogOut,
+} from "lucide-react";
+import { useAuthStore } from "@/features/auth/stores/auth-store";
 
 interface SidebarProps {
   onNavigate?: () => void;
@@ -31,31 +33,31 @@ interface SidebarProps {
 
 const sections = [
   {
-    title: 'Main menu',
+    title: "Main menu",
     items: [
-      { label: 'Dashboard', href: '/dashboard', icon: House },
-      { label: 'Order Management', href: '/orders', icon: ShoppingCart },
-      { label: 'Customers', href: '/customers', icon: Users },
-      { label: 'Coupon Code', href: '/coupons', icon: Ticket },
-      { label: 'Categories', href: '/categories', icon: LayoutGrid },
-      { label: 'Transaction', href: '/transactions', icon: CreditCard },
-      { label: 'Brand', href: '/brands', icon: Star },
+      { label: "Dashboard", href: "/dashboard", icon: House },
+      { label: "Order Management", href: "/orders", icon: ShoppingCart },
+      { label: "Customers", href: "/customers", icon: Users },
+      { label: "Coupon Code", href: "/coupons", icon: Ticket },
+      { label: "Categories", href: "/categories", icon: LayoutGrid },
+      { label: "Transaction", href: "/transactions", icon: CreditCard },
+      { label: "Brand", href: "/brands", icon: Star },
     ],
   },
   {
-    title: 'Product',
+    title: "Product",
     items: [
-      { label: 'Add Products', href: '/products/add', icon: CirclePlus },
-      { label: 'Product Media', href: '/products/media', icon: ImageIcon },
-      { label: 'Product List', href: '/products', icon: List },
-      { label: 'Product Reviews', href: '/products/reviews', icon: Star },
+      { label: "Add Products", href: "/products/add", icon: CirclePlus },
+      { label: "Product Media", href: "/products/media", icon: ImageIcon },
+      { label: "Product List", href: "/products", icon: List },
+      { label: "Product Reviews", href: "/products/reviews", icon: Star },
     ],
   },
   {
-    title: 'Admin',
+    title: "Admin",
     items: [
-      { label: 'Admin role', href: '/admin/roles', icon: CircleUserRound },
-      { label: 'Control Authority', href: '/admin/authority', icon: Settings },
+      { label: "Admin role", href: "/admin/roles", icon: CircleUserRound },
+      { label: "Control Authority", href: "/admin/authority", icon: Settings },
     ],
   },
 ];
@@ -63,12 +65,30 @@ const sections = [
 export function Sidebar({ onNavigate }: SidebarProps) {
   const pathname = usePathname();
 
+  const logout = useAuthStore((s) => s.logout);
+  const router = useRouter();
+
+  function handleLogout() {
+    logout();
+    router.replace("/login");
+  }
+
   return (
     <div className="flex h-full flex-col bg-white">
       {/* Logo */}
       <div className="flex h-16 shrink-0 items-center px-5">
-        <Link href="/dashboard" onClick={onNavigate} className="relative h-6 w-30">
-          <Image src="/dealport-logo.svg" alt="Dealport" fill className="object-contain object-left" priority />
+        <Link
+          href="/dashboard"
+          onClick={onNavigate}
+          className="relative h-6 w-30"
+        >
+          <Image
+            src="/dealport-logo.svg"
+            alt="Dealport"
+            fill
+            className="object-contain object-left"
+            priority
+          />
         </Link>
       </div>
 
@@ -82,17 +102,18 @@ export function Sidebar({ onNavigate }: SidebarProps) {
             <ul className="space-y-0.5">
               {section.items.map((item) => {
                 const isActive =
-                  pathname === item.href || pathname.startsWith(`${item.href}/`);
+                  pathname === item.href ||
+                  pathname.startsWith(`${item.href}/`);
                 return (
                   <li key={item.href}>
                     <Link
                       href={item.href}
                       onClick={onNavigate}
                       className={cn(
-                        'flex items-center gap-3 rounded-lg px-3 py-2.5 text-[16px] font-medium transition-colors',
+                        "flex items-center gap-3 rounded-lg px-3 py-2.5 text-[16px] font-medium transition-colors",
                         isActive
-                          ? 'bg-sidebar-active text-sidebar-active-foreground'
-                          : 'text-muted-foreground hover:bg-muted'
+                          ? "bg-sidebar-active text-sidebar-active-foreground"
+                          : "text-muted-foreground hover:bg-muted",
                       )}
                     >
                       <item.icon className="h-[24px] w-[24px] shrink-0 text-muted-foreground" />
@@ -110,12 +131,25 @@ export function Sidebar({ onNavigate }: SidebarProps) {
       <div className="border-t border-border/60 p-4">
         <div className="flex items-center gap-3 mb-3">
           <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center overflow-hidden shrink-0">
-            <span className="text-sm font-semibold text-muted-foreground">D</span>
+            <span className="text-sm font-semibold text-muted-foreground">
+              D
+            </span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-foreground truncate">Dealport</p>
-            <p className="text-xs text-muted-foreground truncate">Mark@thedesigner_...</p>
+            <p className="text-sm font-semibold text-foreground truncate">
+              Dealport
+            </p>
+            <p className="text-xs text-muted-foreground truncate">
+              Mark@thedesigner_...
+            </p>
           </div>
+          <button
+            onClick={handleLogout}
+            className="h-8 w-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-error/10 hover:text-error transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            title="Logout"
+          >
+            <LogOut className="h-4 w-4" />
+          </button>
         </div>
         <Link
           href="/shop"
