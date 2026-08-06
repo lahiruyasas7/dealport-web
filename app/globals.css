@@ -5,6 +5,15 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-pending: var(--pending);
+  --color-pending-foreground: var(--pending-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-active-foreground: var(--sidebar-active-foreground);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -49,6 +58,14 @@
 }
 
 :root {
+  --success: oklch(0.72 0.19 149);
+  --success-foreground: oklch(0.98 0 0);
+  --pending: oklch(0.87 0.16 97);
+  --pending-foreground: oklch(0.28 0.05 97);
+  --error: oklch(0.63 0.22 25);
+  --error-foreground: oklch(0.98 0 0);
+  --sidebar-active: oklch(0.63 0.12 152);
+  --sidebar-active-foreground: oklch(0.98 0 0);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -121,9 +138,11 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
