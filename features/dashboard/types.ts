@@ -48,3 +48,49 @@ export interface Transaction {
   status: TransactionStatus;
   amount: string;
 }
+
+export type StockStatus = 'IN_STOCK' | 'OUT_OF_STOCK';
+export type ProductStatus = 'DRAFT' | 'PUBLISHED';
+
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  description: string | null;
+  price: string;              // Decimal → string over JSON
+  discountedPrice: string | null;
+  taxIncluded: boolean;
+  stockQuantity: number | null;
+  isUnlimited: boolean;
+  stockStatus: StockStatus;
+  isFeatured: boolean;
+  colors: string[];
+  images: string[];
+  status: ProductStatus;
+  categories: Category[];
+  tags: Category[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProductListParams {
+  search?: string;
+  status?: ProductStatus;
+  page?: number;
+  limit?: number;
+}
+
+export interface PaginatedProducts {
+  data: Product[];
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
