@@ -1,19 +1,22 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { transactions } from "@/features/dashboard/mock-data";
 import { TransactionStatusBadge } from "./transaction-badge";
 
 export function TransactionCard() {
   return (
-    <div className="w-full rounded-lg bg-white p-5 shadow-[0px_1px_3px_rgba(0,0,0,0.2)] lg:h-[420px] lg:w-[808px]">
+    <div className="w-full rounded-lg bg-white p-5 shadow-[0px_1px_3px_rgba(0,0,0,0.2)] lg:h-[420px] max-w-[808px]">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-medium text-foreground">Transaction</h3>
-        <button className="flex items-center gap-1 rounded-full bg-success/10 px-3 py-1.5 text-xs font-medium text-success">
+        <Button
+          size="sm"
+          className="h-8 gap-1.5 rounded-sm bg-sidebar-active px-4 text-xs font-medium text-white hover:bg-sidebar-active/90"
+        >
           Filter
-          <ChevronDown className="h-3.5 w-3.5" />
-        </button>
+          <SlidersHorizontal className="h-3.5 w-3.5" />
+        </Button>
       </div>
 
       <div className="mt-4 overflow-x-auto">
