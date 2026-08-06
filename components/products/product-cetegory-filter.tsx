@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Select,
   SelectContent,
@@ -13,16 +14,29 @@ export function ProductCategoryFilter({
   onChange,
 }: {
   value: string;
-  onChange: (v: string | null) => void;
+  onChange: (v: string) => void;
 }) {
   const { data: categories, isLoading } = useCategories();
 
+  const selectedLabel =
+    value === "all"
+      ? isLoading
+        ? "Loading..."
+        : "All categories"
+      : categories?.find((cat) => cat.id === value)?.name || value;
+
   return (
-    <Select value={value} onValueChange={onChange}>
+    <Select
+      value={value}
+      onValueChange={(v) => {
+        // Radix passes string | null; guard against null
+        if (v !== null) {
+          onChange(v);
+        }
+      }}
+    >
       <SelectTrigger className="w-48">
-        <SelectValue
-          placeholder={isLoading ? "Loading..." : "All categories"}
-        />
+        <SelectValue>{selectedLabel}</SelectValue>
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="all">All categories</SelectItem>
