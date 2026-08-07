@@ -19,3 +19,7 @@ export function getProducts(params: ProductListParams, signal?: AbortSignal) {
 export function createProduct(data: ProductFormValues, signal?: AbortSignal) {
   return apiClient.post<Product>("/products", data, signal);
 }
+
+export function deleteProduct(id: string, signal?: AbortSignal) {
+  return apiClient.delete<void>(`/products/${id}`, signal);
+}
