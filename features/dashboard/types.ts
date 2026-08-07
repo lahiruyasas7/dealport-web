@@ -39,7 +39,7 @@ export interface WeeklyReportData {
   points: WeeklyReportPoint[];
 }
 
-export type TransactionStatus = 'Paid' | 'Pending';
+export type TransactionStatus = "Paid" | "Pending";
 
 export interface Transaction {
   no: number;
@@ -49,8 +49,8 @@ export interface Transaction {
   amount: string;
 }
 
-export type StockStatus = 'IN_STOCK' | 'OUT_OF_STOCK';
-export type ProductStatus = 'DRAFT' | 'PUBLISHED';
+export type StockStatus = "IN_STOCK" | "OUT_OF_STOCK";
+export type ProductStatus = "DRAFT" | "PUBLISHED";
 
 export interface Category {
   id: string;
@@ -62,7 +62,7 @@ export interface Product {
   id: string;
   name: string;
   description: string | null;
-  price: string;              // Decimal → string over JSON
+  price: string; // Decimal → string over JSON
   discountedPrice: string | null;
   taxIncluded: boolean;
   stockQuantity: number | null;
@@ -83,6 +83,7 @@ export interface ProductListParams {
   status?: ProductStatus;
   page?: number;
   limit?: number;
+  categoryId?: string;
 }
 
 export interface PaginatedProducts {
