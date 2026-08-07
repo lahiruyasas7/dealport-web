@@ -66,13 +66,14 @@ export function Sidebar({ onNavigate }: SidebarProps) {
   const pathname = usePathname();
 
   const logout = useAuthStore((s) => s.logout);
+  const user = useAuthStore((s) => s.user);
   const router = useRouter();
 
   function handleLogout() {
     logout();
     router.replace("/login");
   }
-
+  const initials = user?.name?.charAt(0).toUpperCase() ?? "D";
   return (
     <div className="flex h-full flex-col bg-white">
       {/* Logo */}
@@ -156,15 +157,15 @@ export function Sidebar({ onNavigate }: SidebarProps) {
         <div className="flex items-center gap-3 mb-3">
           <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center overflow-hidden shrink-0">
             <span className="text-sm font-semibold text-muted-foreground">
-              D
+              {initials}
             </span>
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-foreground truncate">
-              Dealport
+              {user?.name ?? "Dealport"}
             </p>
             <p className="text-xs text-muted-foreground truncate">
-              Mark@thedesigner_...
+              {user?.email ?? "—"}
             </p>
           </div>
           <button
