@@ -24,6 +24,7 @@ import { ProductImageUploader } from "./product-image-uploader";
 import { MultiSelectPopover } from "./multi-select-popover";
 import { DatePickerField } from "./date-picker-field";
 import { ColorSwatchPicker } from "./color-select-picker";
+import { Save } from "lucide-react";
 
 export function ProductForm() {
   const router = useRouter();
@@ -91,6 +92,7 @@ export function ProductForm() {
             onClick={onSubmit("DRAFT")}
             disabled={createProduct.isPending}
           >
+            <Save className="h-4 w-4" />
             Save to draft
           </Button>
         </div>
