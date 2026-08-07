@@ -28,7 +28,7 @@ export default function ProductListPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-foreground">Product List</h1>
         <Button className="rounded-md w-[142px] h-12 text-[16px] bg-sidebar-active">
-          <Link href="/products/add">
+          <Link href="/products/add" className="flex items-center gap-2">
             <CirclePlus className="h-4 w-4" />
             Add Product
           </Link>

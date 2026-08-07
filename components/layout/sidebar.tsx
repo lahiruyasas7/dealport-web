@@ -101,9 +101,26 @@ export function Sidebar({ onNavigate }: SidebarProps) {
             </h3>
             <ul className="space-y-0.5">
               {section.items.map((item) => {
-                const isActive =
-                  pathname === item.href ||
-                  pathname.startsWith(`${item.href}/`);
+                const isActive = (() => {
+                  // 1. Exact match always wins
+                  if (pathname === item.href) return true;
+
+                  // 2. If another sidebar item matches this path more specifically,
+                  //    this item must NOT activate via prefix.
+                  const hasMoreSpecificMatch = sections.some((sec) =>
+                    sec.items.some(
+                      (other) =>
+                        other.href !== item.href &&
+                        (pathname === other.href ||
+                          pathname.startsWith(`${other.href}/`)),
+                    ),
+                  );
+                  if (hasMoreSpecificMatch) return false;
+
+                  // 3. Safe to activate via prefix (e.g. /orders/123 on /orders)
+                  return pathname.startsWith(`${item.href}/`);
+                })();
+
                 return (
                   <li key={item.href}>
                     <Link
@@ -116,7 +133,14 @@ export function Sidebar({ onNavigate }: SidebarProps) {
                           : "text-muted-foreground hover:bg-muted",
                       )}
                     >
-                      <item.icon className="h-[24px] w-[24px] shrink-0 text-muted-foreground" />
+                      <item.icon
+                        className={cn(
+                          "h-[24px] w-[24px] shrink-0",
+                          isActive
+                            ? "text-sidebar-active-foreground"
+                            : "text-muted-foreground",
+                        )}
+                      />
                       <span>{item.label}</span>
                     </Link>
                   </li>

@@ -78,20 +78,20 @@ export function ProductForm() {
         <div className="flex gap-2">
           <Button
             type="button"
-            variant="outline"
-            className="h-9 rounded-full"
-            onClick={onSubmit("DRAFT")}
-            disabled={createProduct.isPending}
-          >
-            Save to draft
-          </Button>
-          <Button
-            type="button"
-            className="h-9 rounded-full"
+            className="h-12 w-[140px] bg-sidebar-active text-sidebar-active-foreground hover:bg-sidebar-active/90"
             onClick={onSubmit("PUBLISHED")}
             disabled={createProduct.isPending}
           >
             Publish Product
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            className="h-12 w-[140px] rounded-sm "
+            onClick={onSubmit("DRAFT")}
+            disabled={createProduct.isPending}
+          >
+            Save to draft
           </Button>
         </div>
       </div>
