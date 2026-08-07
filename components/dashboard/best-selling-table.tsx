@@ -128,7 +128,7 @@ export function BestSellingTable() {
       <div className="mt-4 flex justify-end shrink-0">
         <Button
           variant="outline"
-          className="h-9 w-24 rounded-full text-xs font-medium border-border hover:bg-muted"
+          className="h-9 w-24 rounded-full text-xs font-medium text-primary border-primary hover:bg-muted"
         >
           Details
         </Button>

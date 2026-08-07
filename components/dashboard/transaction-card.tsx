@@ -51,7 +51,10 @@ export function TransactionCard() {
       </div>
 
       <div className="mt-4 flex justify-end">
-        <Button variant="outline" className="h-8 w-24 rounded-full text-xs">
+        <Button
+          variant="outline"
+          className="h-8 w-24 rounded-full text-xs text-primary border-primary"
+        >
           Details
         </Button>
       </div>
