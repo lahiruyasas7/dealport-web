@@ -244,22 +244,33 @@ export function ProductForm() {
                   <Controller
                     control={control}
                     name="stockStatus"
-                    render={({ field }) => (
-                      <Select
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="IN_STOCK">In Stock</SelectItem>
-                          <SelectItem value="OUT_OF_STOCK">
-                            Stock Out
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                    )}
+                    render={({ field }) => {
+                      const selectedLabel =
+                        field.value === "IN_STOCK"
+                          ? "In Stock"
+                          : field.value === "OUT_OF_STOCK"
+                            ? "Stock Out"
+                            : undefined;
+
+                      return (
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select status">
+                              {selectedLabel}
+                            </SelectValue>
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="IN_STOCK">In Stock</SelectItem>
+                            <SelectItem value="OUT_OF_STOCK">
+                              Stock Out
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      );
+                    }}
                   />
                 </div>
               </div>
