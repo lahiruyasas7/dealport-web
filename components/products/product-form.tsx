@@ -1,11 +1,8 @@
 "use client";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import {
-  productSchema,
-  type ProductFormValues,
-} from "@/features/products/schemas/product.schema";
+import { productSchema } from "@/features/products/schemas/product.schema";
 import { useCreateProduct } from "@/features/products/hooks/use-create-product";
 import { useCategories } from "@/features/categories/hooks/use-categories";
 import { useTags } from "@/features/tags/hooks/use-tags";
@@ -41,7 +38,7 @@ export function ProductForm() {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<ProductFormValues>({
+  } = useForm({
     resolver: zodResolver(productSchema),
     defaultValues: {
       taxIncluded: true,
