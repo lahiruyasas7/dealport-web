@@ -42,7 +42,7 @@ export function ActiveUsersCard({
   return (
     <Card
       className={cn(
-        "gap-0 overflow-hidden rounded-lg py-0 shadow-[0_1px_3px_rgba(0,0,0,0.2)] ring-0",
+        "h-full gap-0 overflow-hidden rounded-lg py-0 shadow-[0_1px_3px_rgba(0,0,0,0.2)] ring-0",
         className,
       )}
     >
@@ -68,7 +68,7 @@ export function ActiveUsersCard({
       </div>
 
       {/* Users per minute */}
-      <div className="mt-10 px-5">
+      <div className="mt-6 px-5 ">
         <p className="text-sm font-medium tracking-[-0.02em] text-muted-foreground">
           Users per minute
         </p>
@@ -95,8 +95,8 @@ export function ActiveUsersCard({
 
       <div className="relative pt-5 pb-4">
         <Image
-          src="/images/world-map.png"
-          alt=""
+          src="/images/us-map.png"
+          alt="us map"
           fill
           sizes="361px"
           aria-hidden

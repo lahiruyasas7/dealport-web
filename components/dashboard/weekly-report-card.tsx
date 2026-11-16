@@ -24,7 +24,7 @@ export function WeeklyReportCard() {
     period === "thisWeek" ? weeklyReportThisWeek : weeklyReportLastWeek;
 
   return (
-    <div className="w-full rounded-lg bg-white p-5 shadow-[0px_1px_3px_rgba(0,0,0,0.2)] lg:h-[460px] lg:w-[739px]">
+    <div className="h-full w-full rounded-lg bg-white p-5 shadow-[0px_1px_3px_rgba(0,0,0,0.2)]">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-medium text-foreground">
           Report for this week
@@ -69,8 +69,10 @@ export function WeeklyReportCard() {
         ))}
       </div>
 
-      <div className="mt-4">
-        <WeeklyReportChart points={data.points} />
+      <div className="relative mt-10 min-h-[220px] flex-1">
+        <div className="absolute inset-0">
+          <WeeklyReportChart points={data.points} />
+        </div>
       </div>
     </div>
   );

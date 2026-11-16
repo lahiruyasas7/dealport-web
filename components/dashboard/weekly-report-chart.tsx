@@ -23,7 +23,7 @@ function CustomTooltip({ active, payload, label }: any) {
 
 export function WeeklyReportChart({ points }: { points: WeeklyReportPoint[] }) {
   return (
-    <div className="h-[210px] w-full lg:w-[636px]">
+    <div className="h-full w-full">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={points}

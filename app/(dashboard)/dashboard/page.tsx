@@ -10,7 +10,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <StatCardsRow />
-      <div className="flex justify-between items-center">
+      <div className="grid items-stretch gap-4 xl:auto-rows-[minmax(460px,auto)] xl:grid-cols-[minmax(0,739fr)_minmax(0,361fr)]">
         <WeeklyReportCard />
         <ActiveUsersCard {...activeUsersMock} />
       </div>
