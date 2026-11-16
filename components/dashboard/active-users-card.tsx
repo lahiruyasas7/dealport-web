@@ -100,7 +100,7 @@ export function ActiveUsersCard({
           fill
           sizes="361px"
           aria-hidden
-          className="pointer-events-none object-cover opacity-30"
+          className="pointer-events-none object-cover"
         />
         <ul className="relative flex flex-col gap-[26px] px-5">
           {countries.map((c) => (
