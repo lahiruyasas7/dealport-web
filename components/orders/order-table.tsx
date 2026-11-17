@@ -144,7 +144,7 @@ export function OrderTable({
                 <TableCell className="whitespace-nowrap text-muted-foreground">
                   {format(parseISO(order.date), "dd-MM-yyyy")}
                 </TableCell>
-                <TableCell>{formatPrice(order.price)}</TableCell>
+                <TableCell>{formatPrice(String(order.price))}</TableCell>
                 <TableCell>
                   <OrderPaymentBadge status={order.paymentStatus} />
                 </TableCell>
