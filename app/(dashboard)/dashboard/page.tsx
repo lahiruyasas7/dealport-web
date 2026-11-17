@@ -1,10 +1,12 @@
 import { ActiveUsersCard } from "@/components/dashboard/active-users-card";
+import { AddProductCard } from "@/components/dashboard/add-new-product-card";
 import { BestSellingTable } from "@/components/dashboard/best-selling-table";
 import { StatCardsRow } from "@/components/dashboard/stat-cards-row";
 import { TopProductsWidget } from "@/components/dashboard/top-product-widget";
 import { TransactionCard } from "@/components/dashboard/transaction-card";
 import { WeeklyReportCard } from "@/components/dashboard/weekly-report-card";
 import { activeUsersMock } from "@/mock/active-users-card.mock";
+import { addProductMock } from "@/mock/add-new-product-card.mock";
 
 export default function DashboardPage() {
   return (
@@ -20,7 +22,12 @@ export default function DashboardPage() {
         <TopProductsWidget />
       </div>
 
-      <BestSellingTable />
+      <div className="grid gap-4 xl:grid-cols-[minmax(0,739fr)_minmax(0,361fr)]">
+        <div className="min-w-0">
+          <BestSellingTable />
+        </div>
+        <AddProductCard {...addProductMock} />
+      </div>
     </div>
   );
 }
