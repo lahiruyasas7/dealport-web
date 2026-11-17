@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useEffectEvent, useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -23,19 +23,28 @@ export function SearchInput({
   className,
 }: SearchInputProps) {
   const [text, setText] = useState(value);
-
-  // Re-sync when the parent changes the value (e.g. "Reset filters").
+  const [emitted, setEmitted] = useState(value); // last value sent to the parent
   const [prevValue, setPrevValue] = useState(value);
+
+  // Sync only EXTERNAL changes (reset, back button), not the echo of our own emit.
   if (value !== prevValue) {
     setPrevValue(value);
-    setText(value);
+    if (value !== emitted) {
+      setText(value);
+      setEmitted(value);
+    }
   }
 
+  const emit = useEffectEvent((next: string) => {
+    setEmitted(next);
+    onChange(next);
+  });
+
   useEffect(() => {
-    if (text === value) return;
-    const id = setTimeout(() => onChange(text), debounceMs);
+    if (text === emitted) return; // already sent
+    const id = setTimeout(() => emit(text), debounceMs);
     return () => clearTimeout(id);
-  }, [text, value, onChange, debounceMs]);
+  }, [text, emitted, debounceMs]); // `emit` is intentionally not a dependency
 
   return (
     <div className={cn("relative", className)}>
